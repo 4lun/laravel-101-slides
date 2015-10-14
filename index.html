@@ -305,10 +305,140 @@ $post = BlogPost::create($formData);
 </div>
 					</section>
 				</section>
+				<section>
+					<h2>Templating</h2>
+					<section>
+					<p>Out of the box Laravel has a template engine called Blade.</p>
+					<blockquote cite="http://laravel.com/docs/5.1/blade">
+						<p>Blade view files use the .blade.php file extension and are typically stored in the resources/views directory.</p>
+						<small>From: <a href="http://laravel.com/docs/5.1/blade">http://laravel.com/docs/5.1/blade</a></small>
+					</blockquote>
+					</section>
+					<section>
+					<p>Basic example</p>
+<pre><code contenteditable data-trim>
+@extends('layouts.master')
 
-			</div>
+@section('title', 'Page Title')
 
+@section('sidebar')
+    @parent
+
+    <p>This is appended to the master sidebar.</p>
+@endsection
+
+@section('content')
+    <p>This is my body content.</p>
+@endsection
+</code></pre>
+					</section>
+<section>
+						<p>Using Blade templates</p>
+<pre><code contenteditable data-trim>
+Route::get('/', function () {
+    return view('index');
+});
+</code></pre>
+<div class="fragment">
+					<p>This will try to include the file <strong>resources/views/index.blade.php</strong><br> (will also try for index.php if not found)</p>
+</div>
+<div class="fragment">
+					<p>Passing data to the view</p>
+<pre><code contenteditable data-trim>
+    return view('blog.post', ['post' => $post]);
+</code></pre>
+<p><small>Note that dots are treated as slashes (e.g. 'blog.post' = 'resources/views/blog/post.blade.php')</small></p>
+
+</div>
+				</section>
+					<section>
+
+<p>Outputting variables</p>
+<pre><code contenteditable data-trim>
+&lt;h1&gt;{{ $blog['post'] }}&lt;/h1&gt;
+</code></pre>
+
+<div class="fragment">
+<p>If statements and foreach loops</p>
+<pre><code contenteditable data-trim>
+@if (count($posts) > 0)
+
+	@foreach ($posts as $post)
+	    &lt;p&gt;{{ $post['name'] }}&lt;/p&gt;
+	@endforeach
+
+@else
+    No posts
+@else
+</code></pre>
+</div>
+					</section>
+
+			</section>
+			<section>
+				<h2>There's much much more!</h2>
+
+<table>
+	<tr>
+	<td><small>
+	<ul>
+<li>Authentication</li>
+<li>Authorization</li>
+<li>Artisan Console</li>
+<li>Billing</li>
+<li>Cache</li>
+<li>Collections</li>
+<li>Elixir</li>
+<li>Encryption</li>
+<li>Errors &amp; Logging</li>
+<li>Events</li>
+<li>Filesystem / Cloud Storage</li>
+<li>Hashing</li>
+<li>Helpers</li>
+</ul>
+</td><td><small>
+<ul>
+<li>Localization</li>
+<li>Mail</li>
+<li>Package Development</li>
+<li>Pagination</li>
+<li>Queues</li>
+<li>Redis</li>
+<li>Session</li>
+<li>SSH Tasks</li>
+<li>Task Scheduling</li>
+<li>Testing</li>
+<li>Validation</li>
+<li>Request Lifecycle</li>
+<li>Application Structure</li>
+</ul>
+</td><td><small>
+<ul>
+<li>Service Providers</li>
+<li>Service Container</li>
+<li>Contracts</li>
+<li>Facades</li>
+<li>Middleware</li>
+<li>Homestead</li>
+<li>Relationships</li>
+<li>Collections</li>
+<li>Mutators</li>
+<li>Serialization</li>
+<li>Query Builder</li>
+<li>Migrations</li>
+<li>Seeding</li>
+</ul>
+			</td>
+		</tr>
+	</table>
+
+			</section>
+			<section>
+				<h1>Questions?</h1>
+			</section>
 		</div>
+
+	</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
